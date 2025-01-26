@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key id="d6" for="edge" attr.name="source_id" attr.type="string" />
+  <key id="d5" for="edge" attr.name="keywords" attr.type="string" />
+  <key id="d4" for="edge" attr.name="description" attr.type="string" />
+  <key id="d3" for="edge" attr.name="weight" attr.type="double" />
+  <key id="d2" for="node" attr.name="source_id" attr.type="string" />
+  <key id="d1" for="node" attr.name="description" attr.type="string" />
+  <key id="d0" for="node" attr.name="entity_type" attr.type="string" />
+  <graph edgedefault="undirected">
+    <node id="&quot;DAYS&quot;">
+      <data key="d0">"CONCEPT"</data>
+      <data key="d1">"Days refers to the passage of time over which she will carry her internal conflicts and experiences."</data>
+      <data key="d2">chunk-7396cb5e9eab990c5ad579ed229aba50</data>
+    </node>
+    <node id="&quot;THE BETRAYAL&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Betrayal refers to a significant historical event that fractured the bond between humans and the beings of the Veil, leading to conflict and a fragile truce."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;THE FIGURE&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"The Figure is a mysterious entity that guides Isla through her visions, representing knowledge and the burden it carries."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;THE TRUTH&quot;">
+      <data key="d0">"CONCEPT"</data>
+      <data key="d1">"The Truth refers to the knowledge and reality that Isla seeks, which comes with a significant price as indicated by The Voice."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242</data>
+    </node>
+    <node id="&quot;EVERSHADE&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"Evershade is a sleepy village nestled deep within the Shadowpine Forest, known for its air of mystery and stories of enchanted beings and curses."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;BURDEN&quot;">
+      <data key="d0">"CONCEPT"</data>
+      <data key="d1">"Burden represents the weight of responsibility and emotional struggle that she carries throughout her life."</data>
+      <data key="d2">chunk-7396cb5e9eab990c5ad579ed229aba50</data>
+    </node>
+    <node id="&quot;THE FOREST&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Forest is a natural setting that serves as the backdrop for Isla's journey, representing harmony and the historical bond between humans and the beings of the Veil."&lt;SEP&gt;"The Forest is the setting where Isla hears whispers and follows them, characterized by its mysterious and haunting atmosphere."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242&lt;SEP&gt;chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;THE VEIL&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Veil is a mystical realm that Isla enters, characterized by a landscape that is both familiar and alien, filled with strange creatures."&lt;SEP&gt;"The Veil is a mystical realm where hidden truths are revealed, serving as a backdrop for Isla's journey of discovery."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242&lt;SEP&gt;chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;BEACON&quot;">
+      <data key="d0">"CONCEPT"</data>
+      <data key="d1">"Beacon symbolizes hope and guidance, representing a source of light in her internal struggle."</data>
+      <data key="d2">chunk-7396cb5e9eab990c5ad579ed229aba50</data>
+    </node>
+    <node id="&quot;THE WHISPERS&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Whispers are the mysterious sounds that call to Isla, leading her deeper into the forest and prompting her journey."&lt;SEP&gt;"The Whispers represent the stories and secrets of the Veil that Isla seeks to understand, symbolizing the allure of hidden knowledge."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242&lt;SEP&gt;chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;ENCHANTED BEINGS&quot;">
+      <data key="d0">"CATEGORY"</data>
+      <data key="d1">"Enchanted Beings are mythical creatures that are part of the folklore surrounding Evershade, contributing to the village's air of mystery."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;DAGGER&quot;">
+      <data key="d0">"TECHNOLOGY"</data>
+      <data key="d1">"The Dagger is another tool carried by Isla, representing her preparedness for potential dangers in the forest."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE STONE ARCHWAY&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Stone Archway is a physical structure that signifies the boundary between the known world and The Veil, marking a point of transition for Isla."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;CURSES&quot;">
+      <data key="d0">"CATEGORY"</data>
+      <data key="d1">"Curses are part of the local legends in Evershade, suggesting a dark history that affects those who venture too far from the village."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE WARS&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Wars are conflicts that followed The Betrayal, further straining the relationship between humans and the beings of the Veil."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;WHISPER MOON&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Whisper Moon is an event that occurs once every twelve years, during which the forest is said to come alive with whispers that can grant knowledge, power, or madness."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE FRAGILE TRUCE&quot;">
+      <data key="d0">"EVENT"</data>
+      <data key="d1">"The Fragile Truce is the current state of relations between humans and the beings of the Veil, indicating a delicate peace after historical conflicts."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;UNSEEN WATCHERS&quot;">
+      <data key="d0">"CATEGORY"</data>
+      <data key="d1">"Unseen Watchers are mysterious entities mentioned in the stories of Evershade, believed to observe the villagers and their actions."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;HER&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"Her is a character who feels a deep internal conflict, symbolized by a beacon and a burden that she will carry throughout her life."</data>
+      <data key="d2">chunk-7396cb5e9eab990c5ad579ed229aba50</data>
+    </node>
+    <node id="&quot;LANTERN&quot;">
+      <data key="d0">"TECHNOLOGY"</data>
+      <data key="d1">"The Lantern is a tool used by Isla as she ventures into the forest, symbolizing her quest for knowledge and adventure."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE OAKS&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Oaks refer to the ancient trees surrounding the village of Evershade, symbolizing the long-standing legends and stories associated with the area."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE ARCHWAY&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Archway is an ancient stone structure covered in vines, glowing in the moonlight, serving as a portal to another realm."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242</data>
+    </node>
+    <node id="&quot;THE MOON&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Moon is described as hanging low in the sky, casting an ethereal glow over the village of Evershade, contributing to the mystical atmosphere."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE CLEARING&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"The Clearing is a specific location within the forest where Isla's journey begins and ends, serving as a pivotal point in her transformation."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;THE CREATURES&quot;">
+      <data key="d0">"CATEGORY"</data>
+      <data key="d1">"The Creatures are various beings that inhabit The Veil, some beautiful and others grotesque, contributing to the otherworldly experience."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242</data>
+    </node>
+    <node id="&quot;KNOWLEDGE&quot;">
+      <data key="d0">"CONCEPT"</data>
+      <data key="d1">"Knowledge is portrayed as both a burden and a gift, emphasizing the weight of understanding hidden truths and the responsibility that comes with it."</data>
+      <data key="d2">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </node>
+    <node id="&quot;ISLA&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"Isla is a character who is drawn into a mysterious forest by whispers, seeking truth and facing a choice at an ancient archway."&lt;SEP&gt;"Isla is a character who seeks understanding of hidden truths and experiences a transformative vision in the Veil."&lt;SEP&gt;"Isla is a seventeen-year-old girl known for her fierce independence and insatiable curiosity, who ventures into the forest during the Whisper Moon event."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242&lt;SEP&gt;chunk-4e9f41e8e8022529dba291754fa0ea5c&lt;SEP&gt;chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <node id="&quot;THE VOICE&quot;">
+      <data key="d0">"PERSON"</data>
+      <data key="d1">"The Voice is an unseen entity that communicates with Isla, offering her a choice regarding the truth and the archway."</data>
+      <data key="d2">chunk-a398e921c192ca4e1803f26212644242</data>
+    </node>
+    <node id="&quot;SHADOWPINE FOREST&quot;">
+      <data key="d0">"GEO"</data>
+      <data key="d1">"Shadowpine Forest surrounds the village of Evershade and is associated with legends and whispers that come alive during the Whisper Moon event."</data>
+      <data key="d2">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </node>
+    <edge source="&quot;THE BETRAYAL&quot;" target="&quot;THE WARS&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"The Betrayal led directly to The Wars, marking a significant turning point in the relationship between humans and the beings of the Veil."</data>
+      <data key="d5">"historical conflict, causation"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE FIGURE&quot;" target="&quot;THE VEIL&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"The Figure exists within The Veil, serving as a conduit for revealing its hidden truths to Isla."</data>
+      <data key="d5">"mystical guidance, knowledge"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE FIGURE&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"Isla interacts with The Figure, who reveals hidden truths to her, leading to a significant transformation in her understanding."</data>
+      <data key="d5">"guidance, transformation"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE FIGURE&quot;" target="&quot;KNOWLEDGE&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"The Figure imparts Knowledge to Isla, highlighting the dual nature of understanding as both a burden and a gift."</data>
+      <data key="d5">"guidance, responsibility"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE TRUTH&quot;" target="&quot;THE VOICE&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"The Voice presents Isla with a choice about The Truth, emphasizing the consequences of her decision."</data>
+      <data key="d5">"choice, consequence"</data>
+      <data key="d6">chunk-a398e921c192ca4e1803f26212644242</data>
+    </edge>
+    <edge source="&quot;EVERSHADE&quot;" target="&quot;CURSES&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"Curses are part of the local lore in Evershade, affecting the villagers' perceptions and actions, especially regarding the forest."</data>
+      <data key="d5">"cultural significance, fear"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;EVERSHADE&quot;" target="&quot;ENCHANTED BEINGS&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"The legends of Enchanted Beings are integral to the culture and stories of Evershade, shaping the villagers' beliefs and fears."</data>
+      <data key="d5">"cultural significance, folklore"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;EVERSHADE&quot;" target="&quot;THE OAKS&quot;">
+      <data key="d3">6.0</data>
+      <data key="d4">"The Oaks are part of the natural landscape surrounding Evershade, contributing to the village's mysterious ambiance and folklore."</data>
+      <data key="d5">"natural landscape, folklore"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;EVERSHADE&quot;" target="&quot;UNSEEN WATCHERS&quot;">
+      <data key="d3">7.0</data>
+      <data key="d4">"The concept of Unseen Watchers adds to the mystery of Evershade, influencing how villagers behave and interact with the forest."</data>
+      <data key="d5">"mystery, cultural beliefs"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;EVERSHADE&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"Isla is a resident of Evershade, which influences her character and her decision to explore the surrounding forest."</data>
+      <data key="d5">"residency, exploration"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;THE FOREST&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">15.0</data>
+      <data key="d4">"Isla's journey begins in The Forest, where she hears The Whispers that lead her to The Archway."&lt;SEP&gt;"Isla's journey is deeply connected to The Forest, which serves as the setting for her exploration and discovery of hidden truths."</data>
+      <data key="d5">"exploration, natural setting"&lt;SEP&gt;"journey, initiation"</data>
+      <data key="d6">chunk-a398e921c192ca4e1803f26212644242&lt;SEP&gt;chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE VEIL&quot;" target="&quot;THE STONE ARCHWAY&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"The Stone Archway serves as a gateway to The Veil, marking the transition from the known world to the realm of hidden truths."</data>
+      <data key="d5">"transition, boundary"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE VEIL&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">17.0</data>
+      <data key="d4">"Isla crosses into The Veil through The Archway, experiencing a transformation in her surroundings and perception."&lt;SEP&gt;"Isla's journey takes place in The Veil, where she seeks to understand the hidden truths of her world."</data>
+      <data key="d5">"exploration, discovery"&lt;SEP&gt;"transformation, exploration"</data>
+      <data key="d6">chunk-a398e921c192ca4e1803f26212644242&lt;SEP&gt;chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE VEIL&quot;" target="&quot;THE CREATURES&quot;">
+      <data key="d3">6.0</data>
+      <data key="d4">"The Creatures inhabit The Veil, contributing to its unique and surreal environment that Isla encounters."</data>
+      <data key="d5">"inhabitation, diversity"</data>
+      <data key="d6">chunk-a398e921c192ca4e1803f26212644242</data>
+    </edge>
+    <edge source="&quot;THE WHISPERS&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">7.0</data>
+      <data key="d4">"The Whispers represent the stories Isla seeks to uncover, driving her curiosity and quest for understanding."</data>
+      <data key="d5">"curiosity, quest for knowledge"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE WHISPERS&quot;" target="&quot;THE VOICE&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"The Whispers culminate in a single voice that communicates with Isla, guiding her decision-making process."</data>
+      <data key="d5">"guidance, communication"</data>
+      <data key="d6">chunk-a398e921c192ca4e1803f26212644242</data>
+    </edge>
+    <edge source="&quot;DAGGER&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"Isla carries the Dagger for protection as she explores the forest, indicating her readiness for potential threats."</data>
+      <data key="d5">"preparedness, adventure"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;THE STONE ARCHWAY&quot;" target="&quot;THE CLEARING&quot;">
+      <data key="d3">7.0</data>
+      <data key="d4">"The Clearing is where the Stone Archway is located, serving as the starting point for Isla's journey into The Veil."</data>
+      <data key="d5">"location, starting point"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;THE WARS&quot;" target="&quot;THE FRAGILE TRUCE&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"The Wars resulted in The Fragile Truce, indicating a shift from conflict to a delicate peace between the two groups."</data>
+      <data key="d5">"conflict resolution, peace"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;WHISPER MOON&quot;" target="&quot;SHADOWPINE FOREST&quot;">
+      <data key="d3">10.0</data>
+      <data key="d4">"The Whisper Moon event is intrinsically linked to Shadowpine Forest, as it is the time when the forest's whispers are said to come alive."</data>
+      <data key="d5">"event significance, mystical connection"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;LANTERN&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"Isla uses the Lantern to navigate the dark forest, symbolizing her quest for truth and adventure."</data>
+      <data key="d5">"navigation, quest"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;THE ARCHWAY&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">8.0</data>
+      <data key="d4">"Isla approaches The Archway, which serves as a gateway to the truth she seeks."</data>
+      <data key="d5">"gateway, choice"</data>
+      <data key="d6">chunk-a398e921c192ca4e1803f26212644242</data>
+    </edge>
+    <edge source="&quot;THE MOON&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">7.0</data>
+      <data key="d4">"The Moon's ethereal glow sets the scene for Isla's adventure, enhancing the mystical atmosphere of her journey."</data>
+      <data key="d5">"atmospheric influence, adventure"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+    <edge source="&quot;KNOWLEDGE&quot;" target="&quot;ISLA&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"Isla's journey leads her to a deeper understanding of Knowledge, which she must now carry as a burden and a gift."</data>
+      <data key="d5">"transformation, understanding"</data>
+      <data key="d6">chunk-4e9f41e8e8022529dba291754fa0ea5c</data>
+    </edge>
+    <edge source="&quot;ISLA&quot;" target="&quot;SHADOWPINE FOREST&quot;">
+      <data key="d3">9.0</data>
+      <data key="d4">"Isla ventures into Shadowpine Forest during the Whisper Moon, seeking adventure and truth about the legends surrounding it."</data>
+      <data key="d5">"adventure, exploration"</data>
+      <data key="d6">chunk-7572983f501c810307dbfbba68d9ed93</data>
+    </edge>
+  </graph>
+</graphml>

@@ -1,0 +1,12 @@
+{
+  "hybrid": {
+    "c81cfd96f71da1bb1539332e5729d80b": {
+      "return": "Isla resides in the village of Evershade, where the Whisper Moon festival occurs every twelve years, bringing the forest alive with whispers.",
+      "embedding": null,
+      "embedding_shape": null,
+      "embedding_min": null,
+      "embedding_max": null,
+      "original_prompt": "where does Isla reside and what festival happens there?"
+    }
+  }
+}
