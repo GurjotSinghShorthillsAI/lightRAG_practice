@@ -180,87 +180,22 @@ When handling relationships with timestamps:
 
 Add sections and commentary to the response as appropriate for the length and format. Style the response in markdown."""
 
-# PROMPTS["keywords_extraction"] = """---Role---
+PROMPTS["keywords_extraction"] = """---Role---
 
-# You are a helpful assistant tasked with identifying both high-level and low-level keywords in the user's query.
-
-# ---Goal---
-
-# The term 'High Level Keyword' is reffered to a term that can be directly seen in the transaction. Low level keywords open the boundaries in that domain and include terms that can be directly related to the transaction. Remember, when giving the high level and low level keywords, you should consider the provided setions and their descriptions of tds when selecting the keywords.
-
-# provided_sections: ["194C", "194JA", "194JB", "194Q", "194A", "194IA", "194IB", "194H", "No TDS"]
-
-# ---Instructions---
-
-# - Output the keywords in JSON format.
-# - The JSON should have two keys:
-#   - "high_level_keywords" for overarching concepts or themes.
-#   - "low_level_keywords" for specific entities or details.
-
-# ######################
-# -Examples-
-# ######################
-# {examples}
-
-# #############################
-# -Real Data-
-# ######################
-# Query: {query}
-# ######################
-# The `Output` should be human text, not unicode characters. Keep the same language as `Query`.
-# Output:
-
-# """
-
-# PROMPTS["keywords_extraction_examples"] = [
-#     """Example 1:
-
-# Query: "This transaction pertains to charges for bill printing and postage related to GBPA - 88356."
-# ################
-# Output:
-# {
-#   "high_level_keywords": ["Bill Printing", "Postage Charges", "Delivery Services"],
-#   "low_level_keywords": ["Payment to Contractor", "Work Contract", "Carriage of Goods"]
-# }
-# Reasoning for high_level_keywords & low_level_keywords: 'Bill Printing' categorized as part of 'manufacturing contract' or a 'work contract'. 'Postage or delivery services' can also relate to 'carriage of goods' when viewed as an extension of the primary contract.
-# #############################""",
-#     """Example 2:
-
-# Query: "What are the environmental consequences of deforestation on biodiversity?"
-# ################
-# Output:
-# {
-#   "high_level_keywords": ["Environmental consequences", "Deforestation", "Biodiversity loss"],
-#   "low_level_keywords": ["Species extinction", "Habitat destruction", "Carbon emissions", "Rainforest", "Ecosystem"]
-# }
-# #############################""",
-#     """Example 3:
-
-# Query: "What is the role of education in reducing poverty?"
-# ################
-# Output:
-# {
-#   "high_level_keywords": ["Education", "Poverty reduction", "Socioeconomic development"],
-#   "low_level_keywords": ["School access", "Literacy rates", "Job training", "Income inequality"]
-# }
-# #############################""",
-# ]
-
-PROMPTS["keywords_extraction"] = """
----Role---
-You are a helpful assistant tasked with identifying both high-level and low-level keywords in user queries.
+You are a helpful assistant tasked with identifying both high-level and low-level keywords in the user's query.
 
 ---Goal---
-High-level keywords refer to terms that directly describe visible elements or overarching themes of a transaction. Low-level keywords delve deeper, relating closely to the transaction’s specifics or associated processes, often in terms of potential tax implications as per the TDS sections.
+
+The term 'High Level Keyword' is reffered to a term that can be directly seen in the transaction. Low level keywords open the boundaries in that domain and include terms that can be directly related to the transaction. Remember, when giving the high level and low level keywords, you should consider the provided setions and their descriptions of tds when selecting the keywords.
 
 provided_sections: ["194C", "194JA", "194JB", "194Q", "194A", "194IA", "194IB", "194H", "No TDS"]
 
 ---Instructions---
-- Extract keywords from the transaction query provided.
-- Output the keywords in JSON format with two keys:
-  - "high_level_keywords": For general themes or visible aspects.
-  - "low_level_keywords": For specific, detailed aspects.
-- Ensure the language of the output matches that of the query and avoid using unicode characters.
+
+- Output the keywords in JSON format.
+- The JSON should have two keys:
+  - "high_level_keywords" for overarching concepts or themes.
+  - "low_level_keywords" for specific entities or details.
 
 ######################
 -Examples-
@@ -272,11 +207,14 @@ provided_sections: ["194C", "194JA", "194JB", "194Q", "194A", "194IA", "194IB", 
 ######################
 Query: {query}
 ######################
+The `Output` should be human text, not unicode characters. Keep the same language as `Query`.
 Output:
+
 """
 
 PROMPTS["keywords_extraction_examples"] = [
     """Example 1:
+
 Query: "This transaction pertains to charges for bill printing and postage related to GBPA - 88356."
 ################
 Output:
@@ -284,18 +222,28 @@ Output:
   "high_level_keywords": ["Bill Printing", "Postage Charges", "Delivery Services"],
   "low_level_keywords": ["Payment to Contractor", "Work Contract", "Carriage of Goods"]
 }
-Reasoning for high_level_keywords & low_level_keywords: 'Bill Printing' is a direct activity related to the transaction, categorizable under a 'work contract' from Section 194C, suggesting a contractual obligation for service delivery. 'Postage Charges' connect to 'Carriage of Goods,' aligning with logistical aspects that can be essential under Section 194C for contractual transport services.
+Reasoning for high_level_keywords & low_level_keywords: 'Bill Printing' categorized as part of 'manufacturing contract' or a 'work contract'. 'Postage or delivery services' can also relate to 'carriage of goods' when viewed as an extension of the primary contract.
 #############################""",
     """Example 2:
-Query: "Payment made for software licensing fees to TechSoft Solutions."
+
+Query: "What are the environmental consequences of deforestation on biodiversity?"
 ################
 Output:
 {
-  "high_level_keywords": ["Software Licensing", "TechSoft Solutions", "Technology Expenses"],
-  "low_level_keywords": ["Royalty Payments", "Intellectual Property", "Software Use"]
+  "high_level_keywords": ["Environmental consequences", "Deforestation", "Biodiversity loss"],
+  "low_level_keywords": ["Species extinction", "Habitat destruction", "Carbon emissions", "Rainforest", "Ecosystem"]
 }
-Reasoning for high_level_keywords & low_level_keywords: 'Software Licensing' directly reflects the nature of the transaction, relating it to 'Royalty Payments' under Sections 194J and 194JA which often involve fees for the right to use intellectual property. 'TechSoft Solutions' provides context to the provider, emphasizing the transaction's focus on technology-based services. 'Technology Expenses' categorize the financial aspect under general business expenditures while 'Intellectual Property' and 'Software Use' delve into the specifics of what the licensing covers, pertinent to understanding the underlying tax implications.
-#############################"""
+#############################""",
+    """Example 3:
+
+Query: "What is the role of education in reducing poverty?"
+################
+Output:
+{
+  "high_level_keywords": ["Education", "Poverty reduction", "Socioeconomic development"],
+  "low_level_keywords": ["School access", "Literacy rates", "Job training", "Income inequality"]
+}
+#############################""",
 ]
 
 
