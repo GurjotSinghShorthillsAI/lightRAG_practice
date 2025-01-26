@@ -1,125 +1,53 @@
 import os
 import logging
+import asyncio
+import numpy as np
+import pandas as pd
+
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langsmith import traceable
 from sentence_transformers import SentenceTransformer
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-# LightRAG imports
+from openai import AzureOpenAI
 from lightrag import LightRAG, QueryParam
 from lightrag.utils import EmbeddingFunc
+from langchain.prompts import PromptTemplate
 
-# OpenAI / Azure OpenAI
-import numpy as np
-from openai import AzureOpenAI
-
-
+# Configure Logging
 logging.basicConfig(level=logging.DEBUG)
-load_dotenv()
 
-
-class PDFChatbotRAG:
+class TransactionInterpreter:
     """
-    An object-oriented class that:
-      1. Loads PDF files and extracts text.
-      2. Splits text into chunks.
-      3. Creates a LightRAG instance for query-based retrieval and summarization.
-      4. Uses Azure OpenAI for the LLM calls.
-      5. Uses SentenceTransformers for text embeddings.
-      6. Allows an interactive loop to query the RAG system.
+    A class to handle loading data, processing transactions, and querying LightRAG
+    using Azure OpenAI.
     """
 
-    def __init__(
-        self,
-        pdf_directory: str = "test_files",
-        working_directory: str = "./test_output",
-        azure_openai_deployment: str = None,
-        azure_openai_api_key: str = None,
-        azure_openai_endpoint: str = None,
-        azure_openai_api_version: str = None,
-    ):
-        """
-        Initializes the PDFChatbotRAG with directory paths and Azure/OpenAI credentials.
+    def __init__(self, pdf_path, excel_path, working_dir):
+        # Load environment variables
+        load_dotenv()
+        self.azure_openai_api_version = os.getenv("AZURE_OPENAI_API_VERSION")
+        self.azure_openai_deployment = os.getenv("AZURE_OPENAI_DEPLOYMENT")
+        self.azure_openai_api_key = os.getenv("AZURE_OPENAI_API_KEY")
+        self.azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
 
-        Args:
-            pdf_directory (str): The folder path where PDF files are located.
-            working_directory (str): Folder path for LightRAG’s working directory.
-            azure_openai_deployment (str): The deployment name of the Azure OpenAI model.
-            azure_openai_api_key (str): The API key for Azure OpenAI.
-            azure_openai_endpoint (str): The endpoint URL for Azure OpenAI.
-            azure_openai_api_version (str): The API version for Azure OpenAI.
-        """
-        self.pdf_directory = pdf_directory
-        self.working_directory = working_directory
+        # File paths and working directory
+        self.pdf_path = pdf_path
+        self.excel_path = excel_path
+        self.working_dir = working_dir
 
-        # Load environment variables if not explicitly provided
-        self.azure_openai_deployment = azure_openai_deployment or os.getenv("AZURE_OPENAI_DEPLOYMENT")
-        self.azure_openai_api_key = azure_openai_api_key or os.getenv("AZURE_OPENAI_API_KEY")
-        self.azure_openai_endpoint = azure_openai_endpoint or os.getenv("AZURE_OPENAI_ENDPOINT")
-        self.azure_openai_api_version = azure_openai_api_version or os.getenv("AZURE_OPENAI_API_VERSION")
-
-        # Tracking tokens usage across the entire session
+        # Initialize global token trackers
         self.total_input_tokens = 0
         self.total_output_tokens = 0
 
-        # Will be assigned after text extraction
-        self.text = ""
-        self.text_chunks = []
-
-        # The final LightRAG instance
+        # Initialize LightRAG instance
         self.rag = None
 
-        # Create working directory if not exists
-        if not os.path.exists(self.working_directory):
-            os.mkdir(self.working_directory)
-
-    def load_pdfs(self):
-        """
-        Reads all PDFs in the specified directory (self.pdf_directory),
-        extracts text from each page, and appends it to self.text.
-        """
-        for pdf_file in os.listdir(self.pdf_directory):
-            # Only process .pdf files
-            if pdf_file.endswith(".pdf"):
-                pdf_path = os.path.join(self.pdf_directory, pdf_file)
-                reader = PdfReader(pdf_path)
-
-                # Extract text from each page
-                for page in reader.pages:
-                    page_text = page.extract_text()
-                    if page_text:
-                        self.text += page_text + "\n"
-
-                print(f"Processed {pdf_file}")
-
     @traceable
-    async def _llm_model_func(
-        self,
-        prompt: str,
-        system_prompt: str = None,
-        history_messages=None,
-        keyword_extraction: bool = False,
-        **kwargs
-    ) -> str:
+    async def llm_model_func(self, prompt, system_prompt=None, history_messages=[], **kwargs):
         """
-        Azure OpenAI chat function for the LLM calls.
-        This function is used by LightRAG for generating or summarizing text
-        based on the retrieved context.
-
-        Args:
-            prompt (str): The user's question or the text prompt.
-            system_prompt (str): The system-level instructions (optional).
-            history_messages (list): Conversation history to pass to the model (optional).
-            keyword_extraction (bool): Whether to process prompt for keywords (LightRAG usage).
-            kwargs: Additional parameters for controlling LLM behavior (temperature, top_p, etc.)
-
-        Returns:
-            str: The model's textual response.
+        Azure OpenAI chat function to interpret transactions using prompts.
         """
-        if history_messages is None:
-            history_messages = []
-
         # Create AzureOpenAI client
         client = AzureOpenAI(
             api_key=self.azure_openai_api_key,
@@ -127,7 +55,7 @@ class PDFChatbotRAG:
             azure_endpoint=self.azure_openai_endpoint,
         )
 
-        # Build the prompt messages
+        # Build messages
         messages = []
         if system_prompt:
             messages.append({"role": "system", "content": system_prompt})
@@ -135,10 +63,7 @@ class PDFChatbotRAG:
             messages.extend(history_messages)
         messages.append({"role": "user", "content": prompt})
 
-        print("Raw Message to LLM:")
-        print(messages)
-
-        # Call the Azure OpenAI Chat Completions
+        # Call Azure OpenAI API
         chat_completion = client.chat.completions.create(
             model=self.azure_openai_deployment,
             messages=messages,
@@ -147,98 +72,138 @@ class PDFChatbotRAG:
             n=kwargs.get("n", 1),
         )
 
-        print("Raw Response from LLM:")
-        print(chat_completion)
+        # Track tokens
+        usage = chat_completion.usage
+        self.total_input_tokens += usage.prompt_tokens
+        self.total_output_tokens += usage.completion_tokens
 
-        # Update token usage statistics
-        prompt_tokens = chat_completion.usage.prompt_tokens
-        completion_tokens = chat_completion.usage.completion_tokens
-        total_tokens = chat_completion.usage.total_tokens
-
-        print(f"Prompt Tokens: {prompt_tokens}")
-        print(f"Completion Tokens: {completion_tokens}")
-        print(f"Total Tokens Used: {total_tokens}")
-
-        self.total_input_tokens += prompt_tokens
-        self.total_output_tokens += completion_tokens
-
+        # Return content
         return chat_completion.choices[0].message.content
 
     @traceable
-    async def _embedding_func(self, texts: list[str]) -> np.ndarray:
+    async def embedding_func(self, texts: list[str]) -> np.ndarray:
         """
-        Provides embeddings for a list of texts using SentenceTransformer.
-        This is the function LightRAG calls to embed both queries and documents.
+        Generate embeddings for the provided texts using SentenceTransformer.
         """
-        model = SentenceTransformer("all-MiniLM-L6-v2")
-
+        model = SentenceTransformer('all-MiniLM-L6-v2')
         embeddings = model.encode(texts, convert_to_numpy=True)
         return embeddings
 
-    def initialize_rag(self):
+    def configure_rag(self):
         """
-        Creates and configures the LightRAG instance using:
-          - self._llm_model_func as the LLM.
-          - self._embedding_func as the embedding function.
-          - The working directory for indexing and caching.
+        Configures the LightRAG instance with the LLM model and embedding function.
         """
+        if not os.path.exists(self.working_dir):
+            os.mkdir(self.working_dir)
+
         self.rag = LightRAG(
-            working_dir=self.working_directory,
-            llm_model_func=self._llm_model_func,
+            working_dir=self.working_dir,
+            llm_model_func=self.llm_model_func,
             embedding_func=EmbeddingFunc(
                 embedding_dim=384,
                 max_token_size=8192,
-                func=self._embedding_func,
+                func=self.embedding_func,
             ),
         )
-        self.rag.insert(self.text)
 
-    def chat_loop(self):
+        # Insert PDF content if applicable
+        if os.path.exists(self.pdf_path):
+            with open(self.pdf_path, "r") as file:
+                text = file.read()
+            self.rag.insert(text)
+
+    def process_excel(self):
         """
-        The main interactive loop to query the RAG system.
-        Type 'exit' to quit the loop.
-        Prints the final answer from the RAG system.
+        Load and process the Excel file to extract transactions.
         """
-        while True:
-            print("Total input tokens:", self.total_input_tokens)
-            print("Total output tokens:", self.total_output_tokens)
-            print("Total tokens used:", self.total_input_tokens + self.total_output_tokens)
+        data = pd.read_excel(self.excel_path)
+        columns_to_extract = [
+            'Sr No',
+            'PO Line Item Description',
+            'Line Description',
+            'Expense GL Description',
+            'Invoice Description',
+            'Section as required in TDS Return'
+        ]
+        return data[columns_to_extract]
 
-            question = input("Enter your question (type 'exit' to quit): ")
+    def process_transaction(self, transaction):
+        """
+        Process a single transaction and query LightRAG in different modes.
+        """
+        # Create prompt
+        prompt = PromptTemplate(
+            input_variables=["po_desc", "line_desc", "gl_desc", "invoice_desc"],
+            template="""
+            Can you help me interpret this transaction in a single line? Return only the single line interpretation and nothing else.
+            Transaction Details: {{
+                "po_desc": "{po_desc}",
+                "line_desc": "{line_desc}",
+                "gl_desc": "{gl_desc}",
+                "invoice_desc": "{invoice_desc}"
+            }}
+            """
+        ).format(
+            po_desc=transaction["PO Line Item Description"],
+            line_desc=transaction["Line Description"],
+            gl_desc=transaction["Expense GL Description"],
+            invoice_desc=transaction["Invoice Description"],
+        )
 
-            if question.lower() == "exit":
-                print("Exiting the chatbot. Goodbye!")
-                break
+        # Get summary from LLM
+        summary = asyncio.run(self.llm_model_func(prompt))
 
-            # Perform query using LightRAG
-            response = self.rag.query(
-                question, 
-                param=QueryParam(mode="hybrid", top_k=5, response_type="Single line")
+        # Query in different modes
+        responses = {}
+        for mode in ["local", "global", "hybrid", "naive"]:
+            response = self.rag.query_with_keywords(
+                summary=summary,
+                param=QueryParam(mode=mode, top_k=5, transaction_no=transaction['Sr No'])
             )
+            responses[mode] = response
 
-            print(f"Answer: {response}\n")
+        return responses
+
+    def interpret_transactions(self):
+        """
+        Process all transactions and output results for each mode.
+        """
+        transactions = self.process_excel()
+
+        # Store results for each mode
+        results = {"local": [], "global": [], "hybrid": [], "naive": []}
+
+        for _, transaction in transactions.iterrows():
+            transaction_results = self.process_transaction(transaction)
+
+            for mode, result in transaction_results.items():
+                results[mode].append(f"Transaction no: {transaction['Sr No']} Section: {result}")
+
+        return results
 
     def run(self):
         """
-        Convenience method to run the entire pipeline:
-         1. Load PDF files and extract text.
-         2. Initialize LightRAG instance.
-         3. Start interactive chat loop.
+        Main pipeline to configure RAG, process transactions, and log token usage.
         """
-        # 1) Load PDFs
-        self.load_pdfs()
+        self.configure_rag()
+        results = self.interpret_transactions()
 
-        # 2) Initialize RAG
-        self.initialize_rag()
+        # Print results
+        for mode, mode_results in results.items():
+            print(f"########################## {mode.upper()} MODE RESULTS #####################################")
+            for result in mode_results:
+                print(result)
 
-        # 3) Start Chat Loop
-        self.chat_loop()
+        # Log token usage
+        print("########################## Token Usage #####################################")
+        print("Total Input Tokens:", self.total_input_tokens)
+        print("Total Output Tokens:", self.total_output_tokens)
+
 
 if __name__ == "__main__":
-    # Create an instance with default paths/env
-    chatbot = PDFChatbotRAG(
-        pdf_directory="test_files",
-        working_directory="./test_output_custom_insert",
-    )
-    # Run the full pipeline
-    chatbot.run()
+    pdf_path = "final_docs.txt"
+    excel_path = "sample_wht_100_data.xlsx"
+    working_dir = "./final_database"
+
+    interpreter = TransactionInterpreter(pdf_path, excel_path, working_dir)
+    interpreter.run()
