@@ -13,6 +13,7 @@ from openai import AzureOpenAI
 from lightrag import LightRAG, QueryParam
 from lightrag.utils import EmbeddingFunc
 from langchain.prompts import PromptTemplate
+from transaction_logger import mylogger
 
 # Configure Logging
 logging.basicConfig(level=logging.DEBUG)
@@ -168,6 +169,11 @@ class TransactionProcessor:
             param=QueryParam(mode="hybrid", top_k=5, transaction_no=transaction['Sr No'])
         )
 
+        mylogger.update_transaction(transaction['Sr No'], "hybrid", **{
+            "Retrieved Section": hybrid_response,
+            "Original Answer": transaction["Section as required in TDS Return"],
+            "Transaction summary": summary
+        })
 
     def interpret_transactions(self):
         """
@@ -178,6 +184,7 @@ class TransactionProcessor:
         for _, transaction in transactions.iterrows():
             self.process_transaction(transaction)
 
+        mylogger.save_to_excel()
 
     def run(self):
         """
@@ -193,8 +200,8 @@ class TransactionProcessor:
 
 
 if __name__ == "__main__":
-    pdf_path = "my_sections.txt"
-    excel_path = "transactions.xlsx"
+    pdf_path = "final_docs.txt"
+    excel_path = "sample_wht_100_data.xlsx"
     working_dir = "./final_database"
 
     processor = TransactionProcessor(pdf_path, excel_path, working_dir)
