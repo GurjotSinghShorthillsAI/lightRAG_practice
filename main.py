@@ -17,10 +17,10 @@ from langchain.prompts import PromptTemplate
 # Configure Logging
 logging.basicConfig(level=logging.DEBUG)
 
-class TransactionInterpreter:
+class TransactionProcessor:
     """
-    A class to handle loading data, processing transactions, and querying LightRAG
-    using Azure OpenAI.
+    Class to process transactions using LightRAG and Azure OpenAI.
+    It reads data, splits it into chunks, queries the model, and logs the results.
     """
 
     def __init__(self, pdf_path, excel_path, working_dir):
@@ -110,7 +110,13 @@ class TransactionInterpreter:
         if os.path.exists(self.pdf_path):
             with open(self.pdf_path, "r") as file:
                 text = file.read()
-            self.rag.insert(text)
+
+            # Split text into chunks
+            chunks = text.split('///')
+            chunks = [chunk.strip() for chunk in chunks]
+
+            # Insert chunks into LightRAG
+            self.rag.insert_custom_chunks(text, chunks)
 
     def process_excel(self):
         """
@@ -129,19 +135,22 @@ class TransactionInterpreter:
 
     def process_transaction(self, transaction):
         """
-        Process a single transaction and query LightRAG in different modes.
+        Process a single transaction and query LightRAG in hybrid mode.
         """
         # Create prompt
         prompt = PromptTemplate(
             input_variables=["po_desc", "line_desc", "gl_desc", "invoice_desc"],
             template="""
-            Can you help me interpret this transaction in a single line? Return only the single line interpretation and nothing else.
+            You are provided with details of a transaction including descriptions from various fields. Using the descriptions given below, generate a concise yet comprehensive summary that captures all essential aspects of the transaction.
+
             Transaction Details: {{
                 "po_desc": "{po_desc}",
                 "line_desc": "{line_desc}",
                 "gl_desc": "{gl_desc}",
                 "invoice_desc": "{invoice_desc}"
             }}
+
+            Please provide a summary that integrates information from all the above fields to offer a complete understanding of the transaction in one or two sentences.
             """
         ).format(
             po_desc=transaction["PO Line Item Description"],
@@ -153,46 +162,29 @@ class TransactionInterpreter:
         # Get summary from LLM
         summary = asyncio.run(self.llm_model_func(prompt))
 
-        # Query in different modes
-        responses = {}
-        for mode in ["local", "global", "hybrid", "naive"]:
-            response = self.rag.query_with_keywords(
-                summary=summary,
-                param=QueryParam(mode=mode, top_k=5, transaction_no=transaction['Sr No'])
-            )
-            responses[mode] = response
+        # Query in hybrid mode
+        hybrid_response = self.rag.query_with_keywords(
+            summary=summary,
+            param=QueryParam(mode="hybrid", top_k=5, transaction_no=transaction['Sr No'])
+        )
 
-        return responses
 
     def interpret_transactions(self):
         """
-        Process all transactions and output results for each mode.
+        Process all transactions and output results.
         """
         transactions = self.process_excel()
 
-        # Store results for each mode
-        results = {"local": [], "global": [], "hybrid": [], "naive": []}
-
         for _, transaction in transactions.iterrows():
-            transaction_results = self.process_transaction(transaction)
+            self.process_transaction(transaction)
 
-            for mode, result in transaction_results.items():
-                results[mode].append(f"Transaction no: {transaction['Sr No']} Section: {result}")
-
-        return results
 
     def run(self):
         """
         Main pipeline to configure RAG, process transactions, and log token usage.
         """
         self.configure_rag()
-        results = self.interpret_transactions()
-
-        # Print results
-        for mode, mode_results in results.items():
-            print(f"########################## {mode.upper()} MODE RESULTS #####################################")
-            for result in mode_results:
-                print(result)
+        self.interpret_transactions()
 
         # Log token usage
         print("########################## Token Usage #####################################")
@@ -201,9 +193,9 @@ class TransactionInterpreter:
 
 
 if __name__ == "__main__":
-    pdf_path = "final_docs.txt"
-    excel_path = "sample_wht_100_data.xlsx"
+    pdf_path = "my_sections.txt"
+    excel_path = "transactions.xlsx"
     working_dir = "./final_database"
 
-    interpreter = TransactionInterpreter(pdf_path, excel_path, working_dir)
-    interpreter.run()
+    processor = TransactionProcessor(pdf_path, excel_path, working_dir)
+    processor.run()
