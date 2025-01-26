@@ -139,6 +139,18 @@ class TransactionProcessor:
         Process a single transaction and query LightRAG in hybrid mode.
         """
         # Create prompt
+        # prompt = PromptTemplate(
+        #     input_variables=["po_desc", "line_desc", "gl_desc", "invoice_desc"],
+        #     template="""
+        #     Can you help me interpret this transaction in a single line? Return only the single line interpretation and nothing else.
+        #     Transaction Details: {{
+        #         "po_desc": "{po_desc}",
+        #         "line_desc": "{line_desc}",
+        #         "gl_desc": "{gl_desc}",
+        #         "invoice_desc": "{invoice_desc}"
+        #     }}
+        #     """
+        # )
         prompt = PromptTemplate(
             input_variables=["po_desc", "line_desc", "gl_desc", "invoice_desc"],
             template="""

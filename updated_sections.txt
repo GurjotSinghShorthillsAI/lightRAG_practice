@@ -1,0 +1,108 @@
+Section 194C: Payments to Contractors and Sub-contractors
+
+Scope: Section 194C applies to TDS for payments made to contractors or subcontractors for executing any type of work under a contract. This includes providing services or labor related to construction, maintenance, advertising, transport, or manufacturing. It explicitly covers services classified as contractual work rather than routine purchases of goods.
+
+Applicable Categories of Transactions:
+1. Payments to Contractors/Sub-contractors:
+Includes construction, repair, or any other contractual work performed under an agreement.
+Examples: Building construction, machinery installation, or equipment repairs.
+
+2. Advertising Contracts:
+Payments for advertising services, including print, digital, and broadcast advertisements.
+
+3. Transport and Carriage of Goods:
+Payments for transporting goods, whether via road, rail, or air, when services are provided by a contractor (excluding goods purchases).
+
+4. Catering Services:
+Payments for food services, event catering, or meal provision contracts.
+
+5. Manufacturing and Processing:
+When a contractor manufactures or processes goods using materials supplied by the payer (deemed contract work, not goods purchase).
+
+6. Broadcasting and Telecasting Services:
+Payments for the production of programs or telecasting content, including broadcasting on TV, radio, or digital platforms.
+
+Exclusions: Pure purchase of goods without a service component falls under 194Q, not 194C.
+
+///
+
+Section 194Q: TDS on Purchase of Goods
+
+Scope: Section 194Q focuses on TDS for buyers who purchase goods above specified thresholds from resident sellers. It ensures tax compliance for large B2B goods transactions, targeting the purchase of goods rather than service contracts.
+
+Applicable Categories of Transactions:
+
+1. High-Value Goods Purchases:
+Applicable where the total value of purchases from a resident seller exceeds INR 50 lakhs in a financial year.
+Examples: Purchase of office supplies, machinery, or raw materials.
+
+2. Routine Purchases of Goods:
+Includes regular purchases for business operations like furniture, stationery, or other tangible items.
+Excludes any service component linked to goods.
+
+Exclusions:
+- Transactions already covered under other TDS sections (e.g., 194C for contract services).
+- Purchases from non-resident sellers or those subject to TCS (Tax Collected at Source).
+
+/// 
+
+Section 194J: TDS on Professional or Technical Services (Including 194JA and 194JB)
+
+Scope: Section 194J covers TDS on payments for professional services, technical services, and royalties. It includes subcategories:
+- 194JA: TDS on technical services and specific royalties (e.g., film-related).
+- 194JB: TDS on professional services, non-compete fees, and other royalties.
+
+///
+
+Section 194JA: Technical Services and Film Royalties
+1. Technical Services (Excluding Professional Services):
+Payments for specialized technical assistance outside typical professions.
+Examples: IT support, software maintenance, or technical consultancy.
+
+2. Royalties Related to Films:
+Payments for the sale, distribution, or exhibition of films.
+Examples: Film distribution rights, royalties for telecasting movies.
+
+3. Call Centre Services:
+Payments for outsourcing customer support services or technical helpdesk operations.
+
+///
+
+Section 194JB: Professional Services, Non-Compete Fees, and Other Royalties
+
+1. Professional Services:
+Payments to professionals for expertise in fields such as:
+- Legal (lawyers, solicitors).
+- Medical (doctors, surgeons).
+- Engineering and Architecture.
+- Interior design, accountancy, and advertising.
+
+2. Non-Compete Fees:
+Payments under agreements where the recipient agrees not to compete or solicit in certain markets or industries.
+
+3. Other Royalties (Excluding Films):
+Payments for intellectual property, software licenses, patents, and trademarks.
+Examples: Brand licensing fees, software usage rights.
+
+///
+
+Section 194J: General Umbrella
+
+Covers all professional or technical services not explicitly categorized under 194JA or 194JB.
+
+Acts as a broader section for professional or technical expertise and general royalty payments.
+
+///
+
+Key Distinctions to Avoid Ambiguity
+
+1. 194C vs. 194Q:
+- 194C: For services or labor contracts involving work execution (e.g., construction, repairs, catering).
+- 194Q: For pure goods purchases (e.g., office equipment, photocopy machines).
+
+2. 194JA vs. 194JB:
+- 194JA: Technical services (not professional) and film-related royalties.
+- 194JB: Professional services, non-compete fees, and non-film royalties.
+
+3. When in Doubt:
+194J acts as the fallback for professional or technical services that don’t clearly fall under 194JA or 194JB.
