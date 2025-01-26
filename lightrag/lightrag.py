@@ -803,24 +803,64 @@ class LightRAG:
         # STEP 2: Final Query Logic
         # ---------------------
         # Now call the appropriate function depending on param.mode
+        
         question = PromptTemplate(
             input_variables=["ll_keywords", "hl_keywords", "summary"],
             template="""
-            You are provided with a transaction summary and set of keywords extracted from that transaction summary.
-            Your task is to identify the single most relevant TDS (Tax Deducted at Source) section from this list:
-            ["194C", "194JA", "194JB", "194Q", "194A", "194IA", "194IB", "194H", "No TDS"].
+        You are provided with:
+        1. A transaction summary,
+        2. A set of low-level and high-level keywords derived from that summary.
 
-            Guidelines:
-            1. Use the provided transaction summary and provided keywords (low-level and high-level) to determine the **most applicable TDS section**.
-            2. Avoid defaulting to "No TDS" unless you are absolutely certain that no other section applies.
-            3. Return only one section name from the list.
+        Your goal:
+        Identify the **most relevant TDS section(s)** from:
+        ["194C", "194JA", "194JB", "194Q", "194A", "194IA", "194IB", "194H", "No TDS"].
 
-            #### Keywords:
-            Low-level keywords: {ll_keywords}
-            High-level keywords: {hl_keywords}
+        ### Guidelines to Follow for TDS Selection:
 
-            ### Transaction Summary:
-            Transaction Summary: {summary}
+        1. **Primary Determination**  
+        - 194C applies to payments for services involving labor or work execution (e.g., construction, repairs, advertising, broadcasting, etc.).  
+        - 194Q applies to straightforward, large-scale purchases of goods without a service component.  
+        - 194JA applies to technical services (specialized) and film-related royalties.  
+        - 194JB applies to professional services, non-compete fees, and other royalties.  
+        - Other sections (194A, 194IA, 194IB, 194H) apply only if clearly indicated by the transaction details (e.g., interest payments for 194A, property transactions for 194IA, etc.).  
+        - "No TDS" should only be used if it is almost certain that TDS does **not** apply based on the transaction details.
+
+        2. **When to Return Two Sections**  
+        - If there is **significant confusion specifically between 194C and 194Q** (i.e., the transaction could plausibly be viewed both as a purchase of goods and as a contract for work/services), then return two sections to reflect that ambiguity.  
+        - If you strongly suspect "No TDS" but still see **some** possibility that a specific section might apply, return both "No TDS" and that possible section.  
+        - **Do not** return two sections for minor uncertainties or for any other confusions besides the above two cases.
+
+        3. **When (and When Not) to Use "No TDS"**  
+        - Use "No TDS" **only** if you are confident that the transaction does not fall under TDS provisions **or** if the transaction details are insufficient/irrelevant for TDS applicability.  
+        - If there's **any likelihood** that TDS applies, pick the most suitable section (or the top two if it’s a tie between 194C and 194Q).  
+        - Resist the temptation to default to "No TDS" unless it is quite clear.
+
+        4. **Output Format (Strict)**  
+        - Always output in the format:
+            ```
+            Section 1: [Your primary section]
+            Section 2: [Second section, only if applicable]
+            ```
+        - If only one section applies, do **not** include "Section 2."  
+        - If two sections apply, clearly list them as shown.  
+        - Provide **no additional commentary** outside the two-line format.
+
+        ---
+
+        #### Keywords:
+        Low-level keywords: {ll_keywords}
+        High-level keywords: {hl_keywords}
+
+        ### Transaction summary:
+        {summary}
+
+        ### Required:
+        Based on the above information and guidelines, provide your answer strictly in the following format:
+
+        Section 1: [One TDS Section OR "No TDS"]
+        Section 2: [Optional second TDS Section ONLY if there's strong confusion (194C vs 194Q) or a possibility of TDS vs. No TDS]
+
+        (No additional information or text beyond these two lines.)
             """
         )
         question = PromptTemplate(
